@@ -29,15 +29,24 @@ to mitigate those attacks[[3]](https://d0.awsstatic.com/whitepapers/Security/aws
 
 | Folder / File      |  Description  |
 |---          |---    |
-| main.tf   |   Main Terraform code |
-| kms.tf   |   KMS  code |
-| s3.tf   |   S3 Bucket  code |
-| versions.tf   |   Main Terraform code |
-| variables.tf   |   Required Variables |
-| output.tf   |   Output variables |
-| guardduty.tfvars   |   tfvars file  |
-| files/bucket_policy.tpl      |  Bucket policy code |
 | .circleci   | CI Pipeline code for validating module.  Requires working example in `example` directory. |
+| main.tf   |   Main Terraform code |
+| outputs.tf  |   Output variables |
+| variables.tf  |   Required Variables |
+| versions.tf   |   versions |
+| waf-regional.tfvars  |   WAF input varaibels |
+| wafregional_ruleset1_sqli.tf  |   SQL Injection Attacks Rules |
+| wafregional_ruleset2_auth_tokens.tf   |   bad/hijacked JWT tokens or session IDs Rules  |
+| wafregional_ruleset3_xss.tf      |  Cross Site Scripting Attacks Rules |
+| wafregional_ruleset4_lfi_rfi.tf      |  Path Traversal, LFI, RFI Rules |
+| wafregional_ruleset5_admin_access.tf     |  Privileged Module Access Restrictions Rules |
+| wafregional_ruleset6_php_insecurities.tf      |  PHP Specific Security Misconfigurations Rules |
+| wafregional_ruleset7_size_restriction.tf     |  Abnormal size request Rules |
+| wafregional_ruleset8_csrf.tf      |  CSRF token enforcement Rules |
+| wafregional_ruleset9_ssi.tf      |  Server-side includes & libraries in webroot Rules |
+| wafregional_ruleset10_blacklisted_ips.tf      |  IP Blacklist |
+| example/      |   Example  directory with sampel terraform |
+
 
 
 
@@ -46,19 +55,19 @@ to mitigate those attacks[[3]](https://d0.awsstatic.com/whitepapers/Security/aws
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | waf\_prefix | Prefix to use when naming resources | string | n/a | yes |
-| admin\_remote\_ipset | List of IPs allowed to access admin pages, ['1.1.1.1/32', '2.2.2.2/32', '3.3.3.3/32'] | list(string) | `[]` | no |
-| alb\_arn | List of ALB ARNs | list(string) | `[]` | no |
-| blacklisted\_ips | List of IPs to blacklist, eg ['1.1.1.1/32', '2.2.2.2/32', '3.3.3.3/32'] | list(string) | `[]` | no |
-| rule\_admin\_access\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_auth\_tokens\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_blacklisted\_ips\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_csrf\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_lfi\_rfi\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_php\_insecurities\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_size\_restriction\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_sqli\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_ssi\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
-| rule\_xss\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_admin\_remote\_ipset | List of IPs allowed to access admin pages, ['1.1.1.1/32', '2.2.2.2/32', '3.3.3.3/32'] | list(string) | `[]` | no |
+| waf_alb\_arn | List of ALB ARNs | list(string) | `[]` | no |
+| waf_blacklisted\_ips | List of IPs to blacklist, eg ['1.1.1.1/32', '2.2.2.2/32', '3.3.3.3/32'] | list(string) | `[]` | no |
+| waf_rule\_admin\_access\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_auth\_tokens\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_blacklisted\_ips\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_csrf\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_lfi\_rfi\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_php\_insecurities\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_size\_restriction\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_sqli\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_ssi\_action\_type | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
+| waf_rule\_xss\_action | Rule action type. Either BLOCK, ALLOW, or COUNT (useful for testing) | string | `"COUNT"` | no |
 
 ## Module Output <a name="s4"></a>
 
